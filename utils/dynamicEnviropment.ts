@@ -21,7 +21,7 @@ export const dynamicEnvironment = () => {
   setEnvironmentVariable(
     "EAZY_AGENT_URL",
     conditionTemplate({
-      dev: "https://dev-eazyagent.eazytestdigital.page",
+      dev: "https://dev-agent.eazytestdigital.page",
       staging: "AGENT_STAGING_URL",
       local: "http://localhost:5000",
     })
