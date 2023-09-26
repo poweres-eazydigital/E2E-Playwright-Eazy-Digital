@@ -53,6 +53,7 @@ export default class AppCommonPage {
   async loginEazyAgent(username: string, password: string): Promise<void> {
     await this.agentUserNameInput.fillElement(username);
     await this.agentPasswordInput.fillElement(password);
+    await this.page.waitForTimeout(2000);
     await this.agentSubmitLoginButton.clickElement();
   }
 

@@ -7,7 +7,7 @@ export default class AgentHomePage extends AppCommonPage {
   }
 
   get bellIcon() {
-    return this.element('[ data-cy="bell"]');
+    return this.element('[data-cy="bell"]');
   }
 
   get headerNavBar() {
