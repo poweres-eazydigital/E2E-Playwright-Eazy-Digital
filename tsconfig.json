@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      /* Specify a set of entries that re-map imports to additional lookup locations. */
+      "@pageIndex": ["PageObject"],
+      "@utils/*": ["utils/*"],
+      "@support/*": ["support/*"],
+      "@lib/*": ["lib/*"]
+    }
+  },
+  "compileOnSave": true
+}
