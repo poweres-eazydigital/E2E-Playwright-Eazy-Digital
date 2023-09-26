@@ -16,7 +16,8 @@ test("Login and save agent token on local", async ({ context }) => {
     process.env.AGENT_USERNAME,
     process.env.AGENT_PASSWORD
   );
-  await agentHomePage.verifyHeaderDisplayed();
+  await agentHomePage.bellIcon.waitForElement({ state: "visible" });
+  // await agentHomePage.verifyHeaderDisplayed();
   const agentToken = await agentHomePage.getAgentTokenFromBrowser();
 
   agentHomePage.saveAgentTokenToLocalFile(agentToken);

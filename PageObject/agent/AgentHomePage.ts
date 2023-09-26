@@ -6,24 +6,26 @@ export default class AgentHomePage extends AppCommonPage {
     super(page);
   }
 
+  get bellIcon() {
+    return this.element('[ data-cy="bell"]');
+  }
+
   get headerNavBar() {
-    return '[data-cy="header-navbar"]';
+    return this.element('[data-cy="header-navbar"]');
   }
 
   get headerAvatar() {
-    return '[data-cy="header-avatar"]';
+    return this.element('[data-cy="header-avatar"]');
   }
 
   get headerHamburgur() {
-    return '[data-cy="header-hamburger"]';
+    return this.element('[data-cy="header-hamburger"]');
   }
 
   async verifyHeaderDisplayed() {
-    await this.page.waitForSelector(this.headerNavBar, {
-      timeout: 10000,
-    });
-    await this.page.waitForSelector(this.headerHamburgur);
-    await this.page.waitForSelector(this.headerAvatar);
+    await this.headerNavBar.waitForElement({ state: "visible" });
+    await this.headerHamburgur.waitForElement({ state: "visible" });
+    await this.headerAvatar.waitForElement({ state: "visible" });
   }
 
   async requestAgentProfile() {
