@@ -18,7 +18,23 @@ jobs:
       - name: Install dependencies
         run: npm i
 
-      - name: Install Playwright Browsers
+
+
+      # - name: Install Playwright Browsers
+      #   run: npx playwright install --with-deps
+    - name: 'Cache: Playwright browsers'
+        uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{ runner.OS }}-x86-compositeV2-playwrightBrowsers-${{ hashFiles('**/pacjage-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.OS }}-x86-compositeV2-playwrightBrowsers-${{ env.cache-name }}-
+            ${{ runner.OS }}-x86-compositeV2-playwrightBrowsers-
+      - name: 'Initialize: Install browsers'
+        shell: bash
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
