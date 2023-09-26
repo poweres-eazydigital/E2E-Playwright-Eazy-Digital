@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { AgentCookie, AgentTokenType } from "@utils/cookieManagement";
 import APIActions from "@utils/APIActions";
-import ElementActions from "@utils/ElemenetActions";
+import elementActionsFactory from "@utils/ElemenetActions";
 
 export default class AppCommonPage {
   readonly page: Page;
@@ -31,11 +31,11 @@ export default class AppCommonPage {
   }
 
   element(selector: string) {
-    return ElementActions(this.page, selector);
+    return elementActionsFactory(this.page, selector);
   }
 
   getElementActionByText(text: string) {
-    return ElementActions(this.page, `//*[contains(text(),'${text}')]`);
+    return elementActionsFactory(this.page, `//*[contains(text(),'${text}')]`);
   }
 
   async visitEazyAgent(slug: string = "", options = {}): Promise<void> {

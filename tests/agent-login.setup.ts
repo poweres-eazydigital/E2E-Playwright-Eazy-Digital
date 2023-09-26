@@ -3,6 +3,7 @@ import { AgentHomePage } from "PageObject";
 import { AgentCookie } from "@utils/cookieManagement";
 
 test("Login and save agent token on local", async ({ context }) => {
+  console.log("agent user name is ", process.env.AGENT_USERNAME);
   const agentCookie = new AgentCookie();
   if (await agentCookie.isCookieValid()) {
     console.log("Previous Cookie is still valid. Skip login step!!");

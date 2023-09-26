@@ -23,9 +23,11 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
-        # env:
-        #   E2E_ENV : 'Dev'
-
+        env:
+          E2E_ENV: "Dev"
+          AGENT_USERNAME: ${{ secrets.DEV_AGENT_USERNAME }}
+          AGENT_PASSWORD: ${{ secrets.DEV_AGENT_PASSWORD }}
+          AGENT_ID: ${{ secrets.DEV_AGENT_ID }}
       - uses: actions/upload-artifact@v3
         if: always()
         with:

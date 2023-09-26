@@ -50,5 +50,5 @@ export default function elementActionsFactory(
   if (!cacheElementActions.hasOwnProperty(selector)) {
     cacheElementActions[selector] = new ElementActions(page, selector);
   }
-  return cacheElementActions[selector];
+  return new ElementActions(page, selector);
 }
