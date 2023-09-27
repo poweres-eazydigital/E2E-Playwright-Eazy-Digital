@@ -30,7 +30,7 @@ const allureResultsPath = path.join(
   "../allure-results/e2e-playwright"
 );
 
-const { GITHUB_RUN_ID, SLACK_WEBHOOK } = process.env;
+const { GITHUB_RUN_ID, SLACK_WEBHOOK, NETLIFY_URL } = process.env;
 
 let slackPayload = {};
 
@@ -176,6 +176,15 @@ let slackPayload = {};
               emoji: true,
             },
             url: `https://github.com/poweres-eazydigital/E2E-Playwright-Eazy-Digital/actions/runs/${GITHUB_RUN_ID}`,
+          },
+          {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "Report",
+              emoji: true,
+            },
+            url: NETLIFY_URL,
           },
         ],
       },

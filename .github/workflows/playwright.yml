@@ -87,12 +87,11 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           build_directory: ./allure-report
           build_command: echo "build"
-      - name: log netlify
-        run: echo ${{env.NETLIFY_PREVIEW_URL}}
 
-      # - name: "Execute: Comment to Slack"
-      #   shell: bash
-      #   env:
-      #     GITHUB_RUN_ID: ${{ github.run_id }}
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      #   run: ts-node scripts/slack-report.ts
+      - name: "Execute: Comment to Slack"
+        shell: bash
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          NETLIFY_URL: ${{env.NETLIFY_PREVIEW_URL}}
+        run: ts-node scripts/slack-report.ts
