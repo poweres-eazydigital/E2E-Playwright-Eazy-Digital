@@ -86,7 +86,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           build_directory: ./allure-report
-
+          build_command: echo "build"
       - name: log netlify
         run: echo ${{env.NETLIFY_PREVIEW_URL}}
 
