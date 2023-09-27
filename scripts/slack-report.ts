@@ -145,10 +145,15 @@ let slackPayload = {};
           text: `E2E result is ${
             getSum(
               parsedData.map((o) => o.status),
-              "passed"
-            ) > 0
-              ? "Passed"
-              : "Failed"
+              "failed"
+            ) +
+              getSum(
+                parsedData.map((o) => o.status),
+                "broken"
+              ) >
+            0
+              ? "Failed"
+              : "Passed"
           }`,
         },
       },
@@ -173,7 +178,7 @@ let slackPayload = {};
               text: "GitHub Actions",
               emoji: true,
             },
-            url: `https://github.com/poweres-eazydigital/E2E-Playwright-Eazy-Digital/actions/runs${GITHUB_RUN_ID}`,
+            url: `https://github.com/poweres-eazydigital/E2E-Playwright-Eazy-Digital/actions/runs/${GITHUB_RUN_ID}`,
           },
         ],
       },
