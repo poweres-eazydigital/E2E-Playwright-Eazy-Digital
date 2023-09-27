@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
 jobs:
-  test:
+  e2e:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -45,5 +45,33 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: e2e-playwright-parallel-${{ matrix.NODE_INDEX }}
+          name: e2e-playwright
           path: allure-results
+  e2e-reports:
+    runs-on: ubuntu-latest
+    needs: [e2e]
+    env:
+      NODE_OPTIONS: "--max_old_space_size=7168"
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Intitialize: Download artifacts"
+        uses: actions/download-artifact@v3
+        with:
+          path: allure-results
+      - run: mv allure-results allure-results-raw
+        shell: bash
+      - name: "Execute: Build web reports from allure-results"
+        id: build-report
+      - name: "Install ts-node globally"
+        run: npm install -g ts-node
+        run: |
+          mkdir -p allure-results
+          cp allure-results-raw/e2e-playwright allure-results
+          rm -rf allure-results-raw && ls -R allure-results
+          npx allure-commandline generate ./allure-results --clean
+        continue-on-error: true
+      - name: "Execute: Comment to Slack"
+        shell: bash
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: ts-node scripts/slack-report.ts
