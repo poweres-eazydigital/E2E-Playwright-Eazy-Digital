@@ -40,15 +40,12 @@ let slackPayload = {};
     .readdirSync(allureResultsPath)
     .filter((o) => !o.startsWith(".") && o.endsWith("-result.json"));
 
-  console.log(testSuiteResultFiles);
-
   let parsedData = await Promise.all(
     testSuiteResultFiles.map(async (file) => {
       const content: TestSuiteResult = JSON.parse(
         await fs.promises.readFile(path.join(allureResultsPath, file), "utf-8")
       );
 
-      console.log(content.fullName, "with status", content.status);
       const suiteLabel = content.labels.find((o) => o.name === "suite").value;
 
       return {
