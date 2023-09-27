@@ -72,6 +72,20 @@ jobs:
         id: build-report
         run: ls -l
 
+      - run: mv allure-results allure-results-raw
+        shell: bash
+
+      - name: "Execute: Build web reports from allure-results"
+        id: build-report
+        run: |
+          mkdir -p allure-results
+          cp -r allure-results-raw/e2e-playwright-parallel allure-results
+          rm -rf allure-results-raw && ls -R allure-results
+
+      - name: "list all files"
+        id: build-report
+        run: ls -l
+
       - name: "Install ts-node globally"
         run: npm install -g ts-node
 
