@@ -185,8 +185,7 @@ let slackPayload = {};
     ],
   };
 
-  if (process.env.CI === "true" || true)
-    await axios.post(SLACK_WEBHOOK, slackPayload);
+  if (process.env.CI === "true") await axios.post(SLACK_WEBHOOK, slackPayload);
   else {
     console.log("Not CI ENV");
   }
