@@ -176,7 +176,7 @@ let slackPayload = {};
 
   if (process.env.CI === "true" || true)
     await axios.post(
-      "https://hooks.slack.com/services/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",
+      "https://hooks.slack.com/services/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",
       slackPayload
     );
   else {
