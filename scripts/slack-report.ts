@@ -27,7 +27,7 @@ export interface TestSuiteResult extends Step {
 
 const allureResultsPath = path.join(__dirname, "../allure-results");
 
-const { GITHUB_RUN_ID } = process.env;
+const { GITHUB_RUN_ID, SLACK_WEBHOOK } = process.env;
 
 let slackPayload = {};
 
@@ -175,10 +175,7 @@ let slackPayload = {};
   };
 
   if (process.env.CI === "true" || true)
-    await axios.post(
-      "https://hooks.slack.com/services/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",
-      slackPayload
-    );
+    await axios.post(SLACK_WEBHOOK, slackPayload);
   else {
     console.log("Not CI ENV");
   }

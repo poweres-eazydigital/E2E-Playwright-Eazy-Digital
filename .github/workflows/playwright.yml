@@ -87,4 +87,5 @@ jobs:
         shell: bash
         env:
           GITHUB_RUN_ID: ${{ github.run_id }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         run: ts-node scripts/slack-report.ts
