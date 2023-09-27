@@ -167,7 +167,7 @@ let slackPayload = {};
               text: "GitHub Actions",
               emoji: true,
             },
-            url: `https://github.com/Brikl/shop-client/actions/runs/${GITHUB_RUN_ID}`,
+            url: `https://github.com/poweres-eazydigital/E2E-Playwright-Eazy-Digital/actions/runs${GITHUB_RUN_ID}`,
           },
         ],
       },
