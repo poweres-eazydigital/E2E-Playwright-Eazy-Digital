@@ -25,10 +25,7 @@ export interface TestSuiteResult extends Step {
   fullName: string;
 }
 
-const allureResultsPath = path.join(
-  __dirname,
-  "../allure-results/e2e-playwright"
-);
+const allureResultsPath = path.join(__dirname, "../allure-results");
 
 const { GITHUB_RUN_ID, SLACK_WEBHOOK, NETLIFY_URL } = process.env;
 
