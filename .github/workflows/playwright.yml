@@ -69,7 +69,6 @@ jobs:
           path: allure-results
 
       - name: "list all files"
-        id: build-report
         run: ls -l
 
       - run: mv allure-results allure-results-raw
@@ -82,8 +81,7 @@ jobs:
           cp -r allure-results-raw/e2e-playwright-parallel allure-results
           rm -rf allure-results-raw && ls -R allure-results
 
-      - name: "list all files"
-        id: build-report
+      - name: "list all files again"
         run: ls -l
 
       - name: "Install ts-node globally"
