@@ -78,7 +78,7 @@ jobs:
         id: build-report
         run: |
           mkdir -p allure-results
-          cp -r allure-results-raw/e2e-playwright-parallel allure-results
+          cp -r allure-results-raw/e2e-playwright allure-results
           rm -rf allure-results-raw && ls -R allure-results
 
       - name: "list all files again"
