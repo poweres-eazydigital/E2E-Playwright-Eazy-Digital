@@ -43,6 +43,7 @@ let slackPayload = {};
         await fs.promises.readFile(path.join(allureResultsPath, file), "utf-8")
       );
 
+      console.log(content.fullName, "with satatus", content.status);
       const suiteLabel = content.labels.find((o) => o.name === "suite").value;
 
       return {
