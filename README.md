@@ -7,7 +7,7 @@ Eazy Digital E2E with Playwright and TypeScript
 1. Git clone the project `git clone https://github.com/poweres-eazydigital/E2E-Playwright-Eazy-Digital.git`
 2. Run `npm install`
 3. Run `npx playwright install --with-deps` to make sure the browers got installed
-4. Declare necessary environment variables to run local test
+4. Create `.env` file and declare necessary environment variables to run local test
    For example,
    - E2E_ENV
    - DEV_AGENT_USERNAME
