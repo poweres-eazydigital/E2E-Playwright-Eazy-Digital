@@ -25,6 +25,15 @@ export interface TestSuiteResult extends Step {
   fullName: string;
 }
 
+export type PraseData = {
+  uid: string;
+  project: string;
+  file: string;
+  status: "passed" | "failed" | "skipped" | "broken";
+  testName: string;
+  finishTime: number;
+};
+
 const allureResultsPath = path.join(__dirname, "../allure-results");
 
 const { GITHUB_RUN_ID, SLACK_WEBHOOK, NETLIFY_URL } = process.env;
@@ -37,7 +46,7 @@ let slackPayload = {};
     .readdirSync(allureResultsPath)
     .filter((o) => !o.startsWith(".") && o.endsWith("-result.json"));
 
-  let parsedData = await Promise.all(
+  let parsedData: PraseData[] = await Promise.all(
     testSuiteResultFiles.map(async (file) => {
       const content: TestSuiteResult = JSON.parse(
         await fs.promises.readFile(path.join(allureResultsPath, file), "utf-8")
@@ -59,29 +68,30 @@ let slackPayload = {};
     statuses.filter((o) => o === key).length;
 
   const getLastRetryTestUid = (retry: number): string[] => {
-    const retryCount = {};
-    const latestUid = [];
+    const retryCount: Partial<PraseData & { totalCount: number }> = {};
+    const latestUid: string[] = [];
 
     parsedData.forEach((o) => {
-      if (o.status === "failed" || o.status === "broken") {
-        if (o.testName in retryCount) {
+      const { status, testName } = o;
+      if (status === "failed" || status === "broken") {
+        if (testName in retryCount) {
           const lastRunResult =
-            retryCount[o.testName].finishTime > o.finishTime
-              ? retryCount[o.testName]
+            retryCount[testName].finishTime > o.finishTime
+              ? retryCount[testName]
               : o;
-          retryCount[o.testName] = {
+          retryCount[testName] = {
             ...lastRunResult,
-            totalCount: retryCount[o.testName].totalCount + 1,
+            totalCount: retryCount[testName].totalCount + 1,
           };
         } else {
-          retryCount[o.testName] = {
+          retryCount[testName] = {
             ...o,
             totalCount: 1,
           };
         }
 
-        if (retryCount[o.testName].totalCount === retry) {
-          latestUid.push(retryCount[o.testName].uid);
+        if (retryCount[testName].totalCount === retry) {
+          latestUid.push(retryCount[testName].uid);
         }
       } else {
         latestUid.push(o.uid);
