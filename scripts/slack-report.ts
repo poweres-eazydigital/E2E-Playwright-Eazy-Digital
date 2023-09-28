@@ -64,8 +64,10 @@ let slackPayload = {};
       };
     })
   );
-  const getSum = (statuses: TestSuiteResult["status"][], key: string) =>
-    statuses.filter((o) => o === key).length;
+  const getSum = (
+    statuses: TestSuiteResult["status"][],
+    key: TestSuiteResult["status"]
+  ) => statuses.filter((o) => o === key).length;
 
   const getLastRetryTestUid = (retry: number): string[] => {
     const retryCount: Partial<PraseData & { totalCount: number }> = {};
