@@ -53,4 +53,31 @@ export const dynamicEnvironment = () => {
       local: "http://localhost:5000",
     })
   );
+
+  setEnvironmentVariable(
+    "AGENT_USERNAME",
+    conditionTemplate({
+      dev: process.env.DEV_AGENT_USERNAME,
+      staging: "No username",
+      local: process.env.DEV_AGENT_USERNAME,
+    })
+  );
+
+  setEnvironmentVariable(
+    "AGENT_PASSWORD",
+    conditionTemplate({
+      dev: process.env.DEV_AGENT_PASSWORD,
+      staging: "No password",
+      local: process.env.DEV_AGENT_PASSWORD,
+    })
+  );
+
+  setEnvironmentVariable(
+    "AGENT_ID",
+    conditionTemplate({
+      dev: process.env.DEV_AGENT_ID,
+      staging: "No agent id",
+      local: process.env.DEV_AGENT_ID,
+    })
+  );
 };
